@@ -1,0 +1,15 @@
+# Client source files — large originals, not for web
+client files/
+
+# Large video files
+assets/video/*.mov
+assets/video/*.mp4
+assets/video/*.webm
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp

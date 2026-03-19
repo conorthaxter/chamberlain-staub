@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chamberlain Staub — Director &amp; Producer</title>
+<meta name="description" content="Chamberlain Staub is a Director & Producer based in Los Angeles. Emmy-winning producer of Chef's Table and Live to 100. SXSW 2026 Official Selection.">
+<meta property="og:title" content="Chamberlain Staub — Director & Producer">
+<meta property="og:description" content="Emmy-winning producer. Director of 'Doom' — SXSW 2026 Official Selection. Based in Los Angeles.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/images/headshot/chamberlain-headshot.jpg">
+<!-- TODO: add favicon once asset is available -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,700;1,900&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0c0c0b;
+    --green: #3a9a4a;
+    --cream: #e8e0d0;
+    --cream-dim: rgba(232, 224, 208, 0.5);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Hanken Grotesk', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+  }
+  .cursor.expanded {
+    width: 40px; height: 40px;
+    background: transparent;
+    border: 1px solid var(--green);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    opacity: 0;
+    transition: opacity 0.6s;
+    text-decoration: none;
+  }
+  .nav-logo.visible { opacity: 1; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-ig {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .nav-ig svg {
+    width: 18px; height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: block;
+  }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--black);
+  }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.38;
+    z-index: 0;
+  }
+
+  .hero-text-container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    user-select: none;
+    margin-top: -6vh;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: clamp(72px, 12vw, 180px);
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    opacity: 0;
+    animation: heroReveal 1.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+  }
+  @keyframes heroReveal {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-top: 1.4rem;
+    opacity: 0;
+    animation: heroReveal 1.2s ease 1.3s forwards;
+  }
+
+  /* WORK */
+  #work {
+    position: relative;
+    background: var(--black);
+    padding: 6rem 0 4rem;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 0 3rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+  }
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: var(--cream);
+    line-height: 1;
+  }
+
+  .diagonal-grid {
+    position: relative;
+    padding: 0 3rem;
+    transform: rotate(-2.5deg) translateX(-1.5%);
+    width: 106%;
+  }
+  .grid-row {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .grid-row:nth-child(even) { transform: translateX(4%); }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: none;
+    text-decoration: none;
+    display: block;
+  }
+  .grid-row:nth-child(1) .project-card:nth-child(1) { width: 40%; padding-top: 24%; }
+  .grid-row:nth-child(1) .project-card:nth-child(2) { width: 30%; padding-top: 20%; }
+  .grid-row:nth-child(1) .project-card:nth-child(3) { width: 26%; padding-top: 18%; }
+
+  .grid-row:nth-child(2) .project-card:nth-child(1) { width: 27%; padding-top: 17%; }
+  .grid-row:nth-child(2) .project-card:nth-child(2) { width: 40%; padding-top: 25%; }
+  .grid-row:nth-child(2) .project-card:nth-child(3) { width: 29%; padding-top: 18%; }
+
+  .grid-row:nth-child(3) .project-card:nth-child(1) { width: 33%; padding-top: 20%; }
+  .grid-row:nth-child(3) .project-card:nth-child(2) { width: 30%; padding-top: 20%; }
+  .grid-row:nth-child(3) .project-card:nth-child(3) { width: 33%; padding-top: 20%; }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.5s;
+    filter: saturate(0.7) brightness(0.68);
+  }
+  .project-card:hover .card-bg {
+    transform: scale(1.06);
+    filter: saturate(1) brightness(0.85);
+  }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(12,12,11,0.92) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .project-card:hover .card-overlay { opacity: 1; }
+  .card-content {
+    position: absolute;
+    bottom: 1.2rem; left: 1.2rem; right: 1.2rem;
+    transform: translateY(8px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+  }
+  .project-card:hover .card-content { transform: translateY(0); opacity: 1; }
+  .card-category {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.3rem;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(0.85rem, 1.4vw, 1.2rem);
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .award-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green);
+    border: 1px solid var(--green);
+    padding: 0.3rem 0.5rem;
+    z-index: 2;
+  }
+  .emmy-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    border: 1px solid #c9a84c;
+    padding: 0.3rem 0.5rem;
+    z-index: 2;
+  }
+
+  .more-work-row {
+    padding: 2.5rem 3rem 0;
+    transform: rotate(-2.5deg) translateX(-1.5%);
+    width: 106%;
+  }
+  .more-work-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    cursor: none;
+  }
+  .more-work-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    transition: color 0.3s;
+  }
+  .more-work-arrow {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--green);
+    transition: transform 0.3s;
+  }
+  .more-work-link:hover .more-work-label { color: var(--cream); }
+  .more-work-link:hover .more-work-arrow { transform: translateX(6px); }
+
+  /* ABOUT */
+  #about {
+    position: relative;
+    padding: 6rem 3rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    overflow: hidden;
+  }
+  #about::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--green), transparent);
+    opacity: 0.3;
+  }
+  .about-visual { position: relative; }
+  .about-img-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 95%;
+    overflow: hidden;
+  }
+  .about-img-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: saturate(0.85);
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .about-visual:hover .about-img-frame img { transform: scale(1.03); }
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem; left: 1.5rem;
+    right: -1.5rem; bottom: -1.5rem;
+    border: 1px solid rgba(58,154,74,0.2);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .about-img-label {
+    position: absolute;
+    bottom: -1.8rem; right: 0;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+  .about-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1.5rem;
+  }
+  .about-heading {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 2rem;
+  }
+  .about-body {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--cream-dim);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+  /* ACCOLADES — embedded in right column of about */
+  .about-accolades {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(232,224,208,0.08);
+  }
+  .about-accolades-eyebrow {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1rem;
+  }
+  .acc-award-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(232,224,208,0.07);
+    font-size: 0.72rem;
+    gap: 1rem;
+  }
+  .acc-award-left {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem 0.7rem;
+    flex: 1;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+  .acc-award-name {
+    color: var(--green);
+    font-weight: 400;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+  .acc-award-name:hover { color: var(--cream); }
+  .acc-award-sep { color: var(--cream-dim); font-weight: 300; flex-shrink: 0; font-size: 0.65rem; line-height: 1.4; }
+  .acc-award-project {
+    color: var(--cream-dim);
+    font-weight: 300;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  .acc-award-year {
+    color: var(--cream-dim);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor { display: none; }
+
+    nav { padding: 1.5rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .nav-links a { font-size: 0.65rem; letter-spacing: 0.12em; }
+
+    #hero { padding-top: 3rem; }
+    .hero-name { font-size: clamp(52px, 16vw, 100px); }
+    .hero-subtitle { font-size: 0.7rem; letter-spacing: 0.25em; }
+
+    #work { padding: 4rem 0 3rem; }
+    .section-header { padding: 0 1.5rem; margin-bottom: 2rem; }
+    .diagonal-grid {
+      padding: 0 1rem;
+      transform: rotate(-1.5deg) translateX(-1%);
+    }
+    .grid-row { gap: 0.6rem; margin-bottom: 0.6rem; }
+    .grid-row { flex-wrap: wrap; }
+    .grid-row .project-card { width: 48% !important; padding-top: 30% !important; }
+
+    #about {
+      display: flex;
+      flex-direction: column;
+      padding: 4rem 1.5rem 3rem;
+      gap: 0;
+    }
+    .about-visual {
+      order: 2;
+      margin-top: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .about-visual::before { display: none; }
+    .about-img-label { display: none; }
+    .about-text { order: 1; }
+
+    #contact { padding: 5rem 1.5rem 4rem; }
+    .contact-heading { font-size: clamp(2.5rem, 12vw, 5rem); }
+    .footer-line { flex-direction: column; gap: 0.5rem; }
+  }
+
+  /* CONTACT */
+  #contact {
+    position: relative;
+    padding: 7rem 3rem 5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  #contact::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(58,154,74,0.3), transparent);
+  }
+  .contact-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 2rem;
+  }
+  .contact-heading {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 8rem);
+    line-height: 1;
+    color: var(--cream);
+    margin-bottom: 3rem;
+  }
+  .contact-sub {
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+    font-weight: 300;
+    max-width: 400px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: var(--green);
+    color: var(--black);
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.3s;
+    cursor: none;
+  }
+  .cta-btn:hover { background: var(--cream); transform: translateY(-2px); }
+
+  .footer-line {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(232,224,208,0.08);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--cream-dim);
+    text-transform: uppercase;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  .bg-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 22vw;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(58,154,74,0.05);
+    pointer-events: none;
+    user-select: none;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo" id="navLogo">Chamberlain Staub</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://instagram.com/staubit" target="_blank" class="nav-ig">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+      </svg>
+    </a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- TODO: drop a compressed 720p mp4 of your reel at assets/video/hero-reel.mp4 to enable hero video -->
+  <!-- <video class="hero-video" autoplay muted loop playsinline><source src="assets/video/hero-reel.mp4" type="video/mp4"></video> -->
+  <div class="hero-text-container">
+    <div class="hero-name" id="heroName">
+      <div>Chamberlain</div>
+      <div>Staub</div>
+    </div>
+    <div class="hero-subtitle">Director &nbsp;·&nbsp; Producer</div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header reveal">
+    <span class="section-label">Selected Work</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="diagonal-grid">
+    <div class="grid-row">
+      <a href="https://youtu.be/heXjjQLnKuc?si=dOeSlf1dAPl6gSAj" target="_blank" class="project-card reveal">
+        <div class="card-bg" style="background-image:url('assets/images/music-videos/doom-great-grandpa-03.png'); background-size: contain; background-repeat: no-repeat;"></div>
+        <div class="card-overlay"></div>
+        <div class="award-badge">SXSW '26</div>
+        <div class="card-content">
+          <div class="card-category">Music Video · Director</div>
+          <div class="card-title">Great Grandpa — Doom</div>
+        </div>
+      </a>
+      <a href="https://youtu.be/it-8MIm29bI?si=wAv_CW40i2xF7mMv" target="_blank" class="project-card reveal reveal-delay-1">
+        <div class="card-bg" style="background-image:url('assets/images/documentary/blue-zones-03.jpg')"></div>
+        <div class="card-overlay"></div>
+        <div class="emmy-badge">Netflix</div>
+        <div class="card-content">
+          <div class="card-category">Documentary Series · Netflix</div>
+          <div class="card-title">Live to 100:<br>Secrets of the Blue Zones</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/watch?v=wk5hRoJKxB0" target="_blank" class="project-card reveal reveal-delay-2">
+        <div class="card-bg" style="background-image:url('assets/images/documentary/chefs-table-02.jpg')"></div>
+        <div class="card-overlay"></div>
+        <div class="emmy-badge">Emmy Winner</div>
+        <div class="card-content">
+          <div class="card-category">Documentary Series · Netflix</div>
+          <div class="card-title">Chef's Table</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="grid-row">
+      <a href="https://youtu.be/EzFguo4vEAQ?si=0wPftw92WtUiRWSj" target="_blank" class="project-card reveal">
+        <div class="card-bg" style="background-image:url('assets/images/documentary/shark-whisperer-01.jpg'); background-position: 70% center;"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <div class="card-category">Documentary · Story Producer</div>
+          <div class="card-title">The Shark Whisperer</div>
+        </div>
+      </a>
+      <a href="https://youtu.be/bWzKk5FheEg?si=ov3OuLJd3UcDFAcF" target="_blank" class="project-card reveal reveal-delay-1">
+        <div class="card-bg" style="background-image:url('assets/images/documentary/first-to-finish-03.jpg')"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <div class="card-category">Documentary · Supervising Producer</div>
+          <div class="card-title">First to the Finish</div>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/companionofthesettingsunfilm" target="_blank" class="project-card reveal reveal-delay-2">
+        <div class="card-bg" style="background-image:url('assets/images/documentary/companion-setting-sun-03.png')"></div>
+        <div class="card-overlay"></div>
+        <div class="award-badge">PhotoVogue 2026</div>
+        <div class="card-content">
+          <div class="card-category">Documentary · Producer · Upcoming</div>
+          <div class="card-title">Companion of the Setting Sun</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="grid-row">
+      <a href="https://www.youtube.com/watch?v=xn4GZUxrQlk" target="_blank" class="project-card reveal">
+        <div class="card-bg" style="background-image:url('assets/images/music-videos/werewoof-01.png')"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <div class="card-category">Music Video · Co-Director</div>
+          <div class="card-title">Thomas Aren — Werewoof</div>
+        </div>
+      </a>
+      <a href="https://vimeo.com/1132614343" target="_blank" class="project-card reveal reveal-delay-1">
+        <div class="card-bg" style="background-image:url('assets/images/music-videos/ducktales-roof-02.png')"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <div class="card-category">Music Video · Producer</div>
+          <div class="card-title">R.O.O.F — Ducktales</div>
+        </div>
+      </a>
+      <a href="https://vimeo.com/1126311540" target="_blank" class="project-card reveal reveal-delay-2">
+        <div class="card-bg" style="background-image:url('assets/images/branded/manscaped-02.png')"></div>
+        <div class="card-overlay"></div>
+        <div class="card-content">
+          <div class="card-category">Branded · Producer</div>
+          <div class="card-title">Manscaped — Be Your Man</div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+  <div class="more-work-row reveal">
+    <a href="portfolio.html" class="more-work-link">
+      <span class="more-work-label">More Work</span>
+      <span class="more-work-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="bg-text">CS</div>
+
+  <!-- LEFT: headshot -->
+  <div class="about-visual reveal">
+    <div class="about-img-frame">
+      <img src="assets/images/headshot/chamberlain-headshot.jpg" alt="Chamberlain Staub" />
+    </div>
+    <div class="about-img-label">Director &amp; Producer</div>
+  </div>
+
+  <!-- RIGHT: bio + accolades -->
+  <div class="about-text">
+    <div class="about-heading-block">
+      <div class="about-eyebrow reveal">About</div>
+      <h2 class="about-heading reveal reveal-delay-1">Visually driven,<br>character-focused<br>storytelling.</h2>
+    </div>
+    <div class="about-body-block">
+      <p class="about-body reveal">Chamberlain Staub has produced Emmy winning series, including Chef's Table and Live to 100: Secrets of the Blue Zones, developing a foundation in visually driven, character-focused storytelling.</p>
+      <p class="about-body reveal">She leans into a hybrid directorial style blending documentary and scripted elements. Her latest directorial project, <em>Doom</em>, created for the band Great Grandpa, explores emotional inheritance and the feeling of being trapped inside unresolved pasts.</p>
+      <!-- ACCOLADES embedded in right column -->
+      <div class="about-accolades reveal">
+        <div class="about-accolades-eyebrow">Official Selections / Awards</div>
+        <div class="acc-award-row">
+          <div class="acc-award-left">
+            <a href="https://www.vogue.com/article/women-by-women-the-shortlist" target="_blank" class="acc-award-name">PhotoVogue Festival</a>
+            <span class="acc-award-sep">|</span>
+            <span class="acc-award-project">'Companion of the Setting Sun'</span>
+          </div>
+          <span class="acc-award-year">2026</span>
+        </div>
+        <div class="acc-award-row">
+          <div class="acc-award-left">
+            <a href="https://schedule.sxsw.com/films/2241673" target="_blank" class="acc-award-name">SXSW Official Selection</a>
+            <span class="acc-award-sep">|</span>
+            <span class="acc-award-project">'Doom'</span>
+          </div>
+          <span class="acc-award-year">2026</span>
+        </div>
+        <div class="acc-award-row">
+          <div class="acc-award-left">
+            <a href="https://www.bluezones.com/news/live-to-100-wins-3-daytime-emmy-awards/" target="_blank" class="acc-award-name">Emmy Award</a>
+            <span class="acc-award-sep">|</span>
+            <span class="acc-award-project">Best Directing Team — Blue Zones</span>
+          </div>
+          <span class="acc-award-year">2024</span>
+        </div>
+        <div class="acc-award-row">
+          <div class="acc-award-left">
+            <a href="https://www.mountainfilm.org/press-releases/mountainfilm-spotlights-global-stories-with-2025-commitment-grants/" target="_blank" class="acc-award-name">Mountainfilm Micro Grant</a>
+            <span class="acc-award-sep">|</span>
+            <span class="acc-award-project">'Companion of the Setting Sun'</span>
+          </div>
+          <span class="acc-award-year">2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-eyebrow reveal">Get in Touch</div>
+  <h2 class="contact-heading reveal">Let's make<br><em>something.</em></h2>
+  <p class="contact-sub reveal">Available for documentary features, music videos, branded content, and narrative projects.</p>
+  <a href="mailto:hello@chamberlainstaub.com" class="cta-btn reveal">Reach Out</a>
+  <div class="footer-line">
+    <span>© 2026 Chamberlain Staub</span>
+    <span>Director &amp; Producer</span>
+  </div>
+</section>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, .project-card, .cta-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+  });
+
+  // Nav logo: fade in after scrolling past hero
+  const navLogo = document.getElementById('navLogo');
+  const hero = document.getElementById('hero');
+  window.addEventListener('scroll', () => {
+    navLogo.classList.toggle('visible', window.scrollY > hero.offsetHeight * 0.6);
+  }, { passive: true });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

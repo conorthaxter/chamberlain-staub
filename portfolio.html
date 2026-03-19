@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Chamberlain Staub | Director &amp; Producer</title>
+<meta name="description" content="Portfolio of Chamberlain Staub — Director & Producer. Documentary, Music Videos, Branded content, and Narrative projects.">
+<meta property="og:title" content="Portfolio — Chamberlain Staub | Director & Producer">
+<meta property="og:type" content="website">
+<!-- TODO: add favicon once asset is available -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,700;1,900&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- =====================================================
+     SHARED DESIGN SYSTEM
+     ===================================================== -->
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0c0c0b;
+    --green: #3a9a4a;
+    --cream: #e8e0d0;
+    --cream-dim: rgba(232, 224, 208, 0.5);
+    --gold: #c9a84c;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Hanken Grotesk', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+  }
+  .cursor.expanded {
+    width: 40px; height: 40px;
+    background: transparent;
+    border: 1px solid var(--green);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    background: linear-gradient(to bottom, rgba(12,12,11,0.92), transparent);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-ig { display: flex; align-items: center; line-height: 1; }
+  .nav-ig svg {
+    width: 18px; height: 18px;
+    fill: none; stroke: currentColor;
+    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    display: block;
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+
+  /* =====================================================
+     PAGE HEADER
+     ===================================================== */
+  .page-header {
+    padding: 10rem 3rem 4rem;
+    border-bottom: 1px solid rgba(232,224,208,0.06);
+  }
+  .page-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1.2rem;
+  }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 9vw, 9rem);
+    line-height: 0.9;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+  }
+
+  /* =====================================================
+     CATEGORY FILTER TABS
+     ===================================================== */
+  .filter-bar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 1.2rem 3rem;
+    background: var(--black);
+    border-bottom: 1px solid rgba(232,224,208,0.06);
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    background: none;
+    border: 1px solid transparent;
+    padding: 0.5rem 1.2rem;
+    cursor: none;
+    white-space: nowrap;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .filter-btn:hover { color: var(--green); }
+  .filter-btn.active { color: var(--green); border-color: var(--green); }
+
+  /* =====================================================
+     PROJECT GRID
+     ===================================================== */
+  .portfolio-section { padding: 3.5rem 3rem 1rem; }
+  .portfolio-category-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(58,154,74,0.15);
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  /* =====================================================
+     PROJECT CARDS
+     ===================================================== */
+  .work-card {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    text-decoration: none;
+    display: block;
+    background: rgba(255,255,255,0.015);
+  }
+  .work-card.hidden { display: none; }
+
+  /* Image area */
+  .card-img-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 62%;
+    overflow: hidden;
+  }
+
+  /* Crossfade frames — JS drives opacity, CSS provides transition */
+  .kb-frame {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.4s ease-in-out, filter 0.5s;
+    filter: saturate(0.7) brightness(0.72);
+  }
+  /* Poster images: contain so text doesn't get cropped */
+  .kb-frame.poster {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: var(--black);
+  }
+  .work-card:hover .kb-frame { filter: saturate(1) brightness(0.88); }
+
+  /* Single static image */
+  .kb-single {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.7) brightness(0.72);
+    transition: filter 0.5s, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .work-card:hover .kb-single { filter: saturate(1) brightness(0.88); transform: scale(1.04); }
+
+  /* No asset placeholder */
+  .no-asset {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #121211 0%, #1a1a19 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border: 1px dashed rgba(232,224,208,0.07);
+  }
+  .no-asset-icon {
+    width: 24px; height: 24px;
+    opacity: 0.18;
+  }
+  .no-asset-text {
+    font-size: 0.48rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(232,224,208,0.22);
+  }
+
+  /* Video preview */
+  .card-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.7) brightness(0.72);
+    transition: filter 0.5s;
+  }
+  .work-card:hover .card-video { filter: saturate(1) brightness(0.88); }
+
+  /* Card info overlay */
+  .card-info-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(12,12,11,0.95) 0%, rgba(12,12,11,0.15) 55%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.35s;
+    z-index: 2;
+  }
+  .work-card:hover .card-info-overlay { opacity: 1; }
+
+  .card-info {
+    position: absolute;
+    bottom: 1.3rem; left: 1.3rem; right: 1.3rem;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+    z-index: 3;
+  }
+  .work-card:hover .card-info { transform: translateY(0); opacity: 1; }
+
+  .card-role {
+    font-size: 0.52rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 0.3rem;
+  }
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  /* Badges — stacked in top-right via flex column */
+  .card-badges {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+    z-index: 3;
+  }
+  .card-badge {
+    font-size: 0.46rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.5rem;
+    line-height: 1;
+  }
+  .card-badge.green { color: var(--green); border: 1px solid var(--green); }
+  .card-badge.gold { color: var(--gold); border: 1px solid var(--gold); }
+  .card-badge.upcoming {
+    color: var(--cream-dim);
+    border: 1px solid rgba(232,224,208,0.2);
+    font-style: italic;
+  }
+
+  /* Logo bar (Branded section) */
+  .logo-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 2rem 3rem;
+    border-top: 1px solid rgba(232,224,208,0.06);
+    flex-wrap: wrap;
+  }
+  .logo-bar img {
+    height: 26px;
+    width: auto;
+    filter: brightness(0) invert(1) opacity(0.22);
+    transition: filter 0.3s;
+    object-fit: contain;
+  }
+  .logo-bar img:hover { filter: brightness(0) invert(1) opacity(0.55); }
+
+  /* FOOTER */
+  .site-footer {
+    padding: 3rem;
+    border-top: 1px solid rgba(232,224,208,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .footer-meta { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream-dim); }
+  .footer-ig { display: flex; align-items: center; }
+  .footer-ig svg {
+    width: 18px; height: 18px;
+    fill: none; stroke: var(--cream-dim);
+    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    transition: stroke 0.3s;
+  }
+  .footer-ig:hover svg { stroke: var(--green); }
+
+  /* MOBILE */
+  @media (max-width: 900px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor { display: none; }
+    nav { padding: 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .page-header { padding: 7rem 1.5rem 3rem; }
+    .filter-bar { padding: 1rem 1.5rem; }
+    .portfolio-section { padding: 3rem 1.5rem 1rem; }
+    .project-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .card-img-wrap { padding-top: 65%; }
+    /* Always show info on mobile */
+    .card-info-overlay { opacity: 1; }
+    .card-info { opacity: 1; transform: translateY(0); }
+    .logo-bar { gap: 1.5rem; padding: 1.5rem; }
+    .site-footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Chamberlain Staub</a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="https://instagram.com/staubit" target="_blank" class="nav-ig">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+    </a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <div class="page-eyebrow reveal">Selected Work</div>
+  <h1 class="page-title reveal reveal-delay-1">Portfolio</h1>
+</header>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="documentary">Documentary</button>
+  <button class="filter-btn" data-filter="music-videos">Music Videos</button>
+  <button class="filter-btn" data-filter="branded">Branded</button>
+  <button class="filter-btn" data-filter="narrative">Narrative</button>
+</div>
+
+<!-- =========================================================
+     DOCUMENTARY
+     ========================================================= -->
+<section class="portfolio-section" id="section-documentary">
+  <div class="portfolio-category-label">Documentary</div>
+  <div class="project-grid">
+
+    <!-- Live to 100: Blue Zones -->
+    <a href="https://youtu.be/it-8MIm29bI?si=wAv_CW40i2xF7mMv" target="_blank"
+       class="work-card reveal" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/documentary/blue-zones-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/blue-zones-02.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/blue-zones-03.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/blue-zones-04.png"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/blue-zones-05.png"></div>
+      </div>
+      <div class="card-badges">
+        <span class="card-badge gold">Emmy Winner</span>
+        <span class="card-badge gold">Netflix</span>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">Live to 100: Secrets of the Blue Zones</div></div>
+    </a>
+
+    <!-- Chef's Table S7 -->
+    <a href="https://www.youtube.com/watch?v=wk5hRoJKxB0" target="_blank"
+       class="work-card reveal reveal-delay-1" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/documentary/chefs-table-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/chefs-table-02.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/chefs-table-03.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/chefs-table-04.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/chefs-table-05.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/chefs-table-06.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/chefs-table-07.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/chefs-table-08.jpg"></div>
+      </div>
+      <div class="card-badges">
+        <span class="card-badge gold">Emmy Winner</span>
+        <span class="card-badge gold">Netflix</span>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Story Producer</div><div class="card-name">Chef's Table — S7</div></div>
+    </a>
+
+    <!-- First to the Finish -->
+    <a href="https://youtu.be/bWzKk5FheEg?si=ov3OuLJd3UcDFAcF" target="_blank"
+       class="work-card reveal reveal-delay-2" data-category="documentary">
+      <div class="card-img-wrap">
+        <!-- Skipping first-to-finish-02.jpg (poster with text) -->
+        <div class="kb-frame" data-bg="assets/images/documentary/first-to-finish-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/first-to-finish-03.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/first-to-finish-04.png"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/first-to-finish-05.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Supervising Producer</div><div class="card-name">First to the Finish</div></div>
+    </a>
+
+    <!-- Companion of the Setting Sun -->
+    <a href="https://www.instagram.com/companionofthesettingsunfilm" target="_blank"
+       class="work-card reveal" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/documentary/companion-setting-sun-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/companion-setting-sun-02.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/companion-setting-sun-03.png"></div>
+      </div>
+      <div class="card-badges">
+        <span class="card-badge green">PhotoVogue 2026</span>
+        <span class="card-badge green">Mountainfilm</span>
+        <span class="card-badge upcoming">~ Upcoming</span>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer · Upcoming</div><div class="card-name">Companion of the Setting Sun</div></div>
+    </a>
+
+    <!-- The Shark Whisperer -->
+    <a href="https://youtu.be/EzFguo4vEAQ?si=0wPftw92WtUiRWSj" target="_blank"
+       class="work-card reveal reveal-delay-1" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/documentary/shark-whisperer-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/shark-whisperer-02.jpg"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Story Producer</div><div class="card-name">The Shark Whisperer</div></div>
+    </a>
+
+    <!-- Grandmother of Xochimilco — NO ASSET -->
+    <a href="https://vimeo.com/1133495645" target="_blank"
+       class="work-card reveal reveal-delay-2" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="no-asset">
+          <svg class="no-asset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2"/></svg>
+          <span class="no-asset-text">No asset provided</span>
+        </div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">Grandmother of Xochimilco</div></div>
+    </a>
+
+    <!-- More Than Robots -->
+    <a href="https://www.youtube.com/watch?v=AjIISbARc20" target="_blank"
+       class="work-card reveal" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/documentary/more-than-robots-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/more-than-robots-02.jpg"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Associate Producer</div><div class="card-name">More Than Robots</div></div>
+    </a>
+
+    <!-- Olivia Rodrigo: Driving Home 2 U (no external link) -->
+    <div class="work-card reveal reveal-delay-1" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/documentary/olivia-rodrigo-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/olivia-rodrigo-02.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/olivia-rodrigo-03.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/olivia-rodrigo-04.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Production Coordinator</div><div class="card-name">Olivia Rodrigo: Driving Home 2 U</div></div>
+    </div>
+
+    <!-- Sketchbook — only using the editorial still, not portrait poster art -->
+    <a href="https://www.youtube.com/watch?v=P8stiIE-8oI" target="_blank"
+       class="work-card reveal reveal-delay-2" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-single" data-bg="assets/images/documentary/sketchbook-01.webp"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Production Coordinator</div><div class="card-name">Sketchbook</div></div>
+    </a>
+
+    <!-- Being Eddie -->
+    <a href="https://www.youtube.com/watch?v=98xUkIDUPVg" target="_blank"
+       class="work-card reveal" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-single" data-bg="assets/images/documentary/being-eddie-01.webp"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Field Producer</div><div class="card-name">Being Eddie</div></div>
+    </a>
+
+    <!-- The Me You Can't See -->
+    <a href="https://www.youtube.com/watch?v=dWevopoBmAE" target="_blank"
+       class="work-card reveal reveal-delay-1" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-single" data-bg="assets/images/documentary/me-you-cant-see-01.jpg"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Field Coordinator</div><div class="card-name">The Me You Can't See</div></div>
+    </a>
+
+    <!-- The Trials of Gabriel Fernandez -->
+    <a href="https://www.youtube.com/watch?v=-T7VXlB4qUI" target="_blank"
+       class="work-card reveal reveal-delay-2" data-category="documentary">
+      <div class="card-img-wrap">
+        <!-- Skipping portrait poster thumbnails, using landscape stills -->
+        <div class="kb-frame" data-bg="assets/images/documentary/gabriel-fernandez-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/gabriel-fernandez-03.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Production Coordinator</div><div class="card-name">The Trials of Gabriel Fernandez</div></div>
+    </a>
+
+    <!-- Obi-Wan Kenobi: A Jedi's Return — NO ASSET -->
+    <a href="https://www.youtube.com/watch?v=4WaC8k3WVl8" target="_blank"
+       class="work-card reveal" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="no-asset">
+          <svg class="no-asset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2"/></svg>
+          <span class="no-asset-text">No asset provided</span>
+        </div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Field Producer</div><div class="card-name">Obi-Wan Kenobi: A Jedi's Return</div></div>
+    </a>
+
+    <!-- Gloria's Garden -->
+    <a href="https://youtu.be/5ALztH_eNiI?si=W07sCiQx27EQN70n" target="_blank"
+       class="work-card reveal reveal-delay-1" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/documentary/glorias-garden-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/glorias-garden-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/glorias-garden-03.png"></div>
+        <div class="kb-frame" data-bg="assets/images/documentary/glorias-garden-04.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">DP + Director</div><div class="card-name">Gloria's Garden</div></div>
+    </a>
+
+    <!-- Melba — NO ASSET, NO LINK -->
+    <div class="work-card reveal reveal-delay-2" data-category="documentary">
+      <div class="card-img-wrap">
+        <div class="no-asset">
+          <svg class="no-asset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2"/></svg>
+          <span class="no-asset-text">No asset provided</span>
+        </div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role"><!-- TODO: confirm role --></div><div class="card-name">Melba</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     MUSIC VIDEOS
+     ========================================================= -->
+<section class="portfolio-section" id="section-music-videos">
+  <div class="portfolio-category-label">Music Videos</div>
+  <div class="project-grid">
+
+    <!-- Doom - Great Grandpa (skipping DOOMPOSTER-01 with large text) -->
+    <a href="https://youtu.be/heXjjQLnKuc?si=dOeSlf1dAPl6gSAj" target="_blank"
+       class="work-card reveal" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/music-videos/doom-great-grandpa-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/doom-great-grandpa-04.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/doom-great-grandpa-07.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/doom-great-grandpa-08.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/doom-great-grandpa-12.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/doom-great-grandpa-13.png"></div>
+      </div>
+      <div class="card-badges"><span class="card-badge green">SXSW '26</span></div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Director</div><div class="card-name">Great Grandpa — "Doom"</div></div>
+    </a>
+
+    <!-- Ducktales - R.O.O.F -->
+    <a href="https://vimeo.com/1132614343" target="_blank"
+       class="work-card reveal reveal-delay-1" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/music-videos/ducktales-roof-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/ducktales-roof-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/ducktales-roof-03.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/ducktales-roof-04.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/ducktales-roof-05.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">R.O.O.F — "Ducktales"</div></div>
+    </a>
+
+    <!-- Xerox - Thomas Aren -->
+    <a href="https://www.youtube.com/watch?v=VN2zc2-i_OM" target="_blank"
+       class="work-card reveal reveal-delay-2" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/music-videos/xerox-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/xerox-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/xerox-03.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/xerox-04.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/xerox-05.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/xerox-08.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/xerox-09.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">Thomas Aren — "Xerox"</div></div>
+    </a>
+
+    <!-- Low - Arswain -->
+    <a href="https://www.youtube.com/watch?v=7THn8Wn1sSM" target="_blank"
+       class="work-card reveal" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-single" data-bg="assets/images/music-videos/low-arswain-01.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Director</div><div class="card-name">Arswain — "Low" (Live Cover)</div></div>
+    </a>
+
+    <!-- Werewoof - Thomas Aren -->
+    <a href="https://www.youtube.com/watch?v=xn4GZUxrQlk" target="_blank"
+       class="work-card reveal reveal-delay-1" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-single" data-bg="assets/images/music-videos/werewoof-01.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Co-Director</div><div class="card-name">Thomas Aren — "Werewoof"</div></div>
+    </a>
+
+    <!-- Whippoor Will - Max Look -->
+    <a href="https://www.youtube.com/watch?v=DoYx6mL1QkU" target="_blank"
+       class="work-card reveal reveal-delay-2" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/music-videos/whippoor-will-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/whippoor-will-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/whippoor-will-03.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">Max Look — "Whippoor Will"</div></div>
+    </a>
+
+    <!-- Hollywood 4ever - Conor James -->
+    <a href="https://www.youtube.com/watch?v=_bQMuJ8iXkY" target="_blank"
+       class="work-card reveal" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/music-videos/hollywood-4ever-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/hollywood-4ever-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/hollywood-4ever-03.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/hollywood-4ever-04.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/hollywood-4ever-05.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/hollywood-4ever-06.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/hollywood-4ever-07.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Co-Director</div><div class="card-name">Conor James — "Hollywood 4ever"</div></div>
+    </a>
+
+    <!-- 2 Months - Jessica Vines -->
+    <a href="https://www.youtube.com/watch?v=6aY77iqty58" target="_blank"
+       class="work-card reveal reveal-delay-1" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-single" data-bg="assets/images/music-videos/2-months-01.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Director</div><div class="card-name">Jessica Vines — "2 Months"</div></div>
+    </a>
+
+    <!-- Childish - Thomas Aren -->
+    <a href="https://www.youtube.com/watch?v=f1UuWEMQCuk" target="_blank"
+       class="work-card reveal reveal-delay-2" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/music-videos/childish-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/music-videos/childish-02.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">Thomas Aren — "Childish"</div></div>
+    </a>
+
+    <!-- Bride — NO ASSET -->
+    <div class="work-card reveal" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="no-asset">
+          <svg class="no-asset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2"/></svg>
+          <span class="no-asset-text">No asset provided</span>
+        </div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role"><!-- TODO: confirm role --></div><div class="card-name">Bride</div></div>
+    </div>
+
+    <!-- Garden — NO ASSET -->
+    <div class="work-card reveal reveal-delay-1" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="no-asset">
+          <svg class="no-asset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2"/></svg>
+          <span class="no-asset-text">No asset provided</span>
+        </div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role"><!-- TODO: confirm role --></div><div class="card-name">Garden</div></div>
+    </div>
+
+    <!-- Why Do U Say u Love Me — NO ASSET -->
+    <div class="work-card reveal reveal-delay-2" data-category="music-videos">
+      <div class="card-img-wrap">
+        <div class="no-asset">
+          <svg class="no-asset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2"/></svg>
+          <span class="no-asset-text">No asset provided</span>
+        </div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role"><!-- TODO: confirm role --></div><div class="card-name">Why Do U Say u Love Me</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     BRANDED
+     ========================================================= -->
+<section class="portfolio-section" id="section-branded">
+  <div class="portfolio-category-label">Branded</div>
+  <div class="project-grid">
+
+    <!-- Manscaped — video available but 67MB; using images for now
+         NOTE: transcode manscaped_be_your_man.mp4 to web-optimized 720p for video preview -->
+    <a href="https://vimeo.com/1126311540" target="_blank"
+       class="work-card reveal" data-category="branded">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/branded/manscaped-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/manscaped-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/manscaped-03.png"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/manscaped-04.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">Manscaped — "Be Your Man"</div></div>
+    </a>
+
+    <!-- Speedo — video available (speedo2.mov, 40MB); using images for now
+         NOTE: transcode speedo2.mov to web-optimized mp4 for video preview -->
+    <a href="https://endurance.biz/2026/industry-news/speedo-spotlights-swim-fitness-benefits-in-new-swim-gains-campaign/" target="_blank"
+       class="work-card reveal reveal-delay-1" data-category="branded">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/branded/speedo-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/speedo-02.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/speedo-03.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/speedo-08.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/speedo-11.jpg"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">Speedo — Swim Gains Campaign</div></div>
+    </a>
+
+    <!-- Lightbio (no external link) -->
+    <div class="work-card reveal reveal-delay-2" data-category="branded">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/branded/lightbio-01.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/lightbio-02.jpg"></div>
+        <div class="kb-frame" data-bg="assets/images/branded/lightbio-03.jpg"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Director</div><div class="card-name">Lightbio — 2026 Spring Campaign</div></div>
+    </div>
+
+    <!-- House of Rohl — NO ASSET -->
+    <div class="work-card reveal" data-category="branded">
+      <div class="card-img-wrap">
+        <div class="no-asset">
+          <svg class="no-asset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2"/></svg>
+          <span class="no-asset-text">No asset provided</span>
+        </div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role"><!-- TODO: confirm role --></div><div class="card-name">House of Rohl</div></div>
+    </div>
+
+    <!-- TikTok — NO ASSET -->
+    <div class="work-card reveal reveal-delay-1" data-category="branded">
+      <div class="card-img-wrap">
+        <div class="no-asset">
+          <svg class="no-asset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="12" cy="15" r="2"/></svg>
+          <span class="no-asset-text">No asset provided</span>
+        </div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role"><!-- TODO: confirm role --></div><div class="card-name">TikTok</div></div>
+    </div>
+
+  </div>
+
+  <!-- Client logo bar -->
+  <div class="logo-bar">
+    <img src="assets/images/logos/manscaped.png" alt="Manscaped">
+    <img src="assets/images/logos/speedo.png" alt="Speedo">
+    <img src="assets/images/logos/house-of-rohl.webp" alt="House of Rohl">
+    <img src="assets/images/logos/tiktok.png" alt="TikTok">
+    <img src="assets/images/logos/hoka.png" alt="Hoka">
+  </div>
+</section>
+
+<!-- =========================================================
+     NARRATIVE
+     ========================================================= -->
+<section class="portfolio-section" id="section-narrative">
+  <div class="portfolio-category-label">Narrative</div>
+  <div class="project-grid">
+
+    <!-- Likeness (no external link, upcoming) -->
+    <div class="work-card reveal" data-category="narrative">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-03.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-04.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-05.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-06.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-07.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-08.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/likeness-10.jpeg"></div>
+      </div>
+      <div class="card-badges"><span class="card-badge upcoming">~ Upcoming</span></div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer · Upcoming</div><div class="card-name">Likeness</div></div>
+    </div>
+
+    <!-- Sisters (no external link) -->
+    <div class="work-card reveal reveal-delay-1" data-category="narrative">
+      <div class="card-img-wrap">
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-01.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-02.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-03.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-04.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-05.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-06.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-07.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-08.png"></div>
+        <div class="kb-frame" data-bg="assets/images/narrative/sisters-09.png"></div>
+      </div>
+      <div class="card-info-overlay"></div>
+      <div class="card-info"><div class="card-role">Producer</div><div class="card-name">Sisters</div></div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <a href="index.html" class="footer-logo">Chamberlain Staub</a>
+  <span class="footer-meta">© 2026 · Director &amp; Producer</span>
+  <a href="https://instagram.com/staubit" target="_blank" class="footer-ig">
+    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+  </a>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, .work-card, .filter-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+  });
+
+  // =====================================================
+  // LAZY LOAD background images (lightweight)
+  // =====================================================
+  const bgObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.querySelectorAll('[data-bg]').forEach(el => {
+        el.style.backgroundImage = `url('${el.dataset.bg}')`;
+        delete el.dataset.bg;
+      });
+      bgObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '300px' });
+  document.querySelectorAll('.work-card').forEach(card => bgObserver.observe(card));
+
+  // =====================================================
+  // JS CROSSFADE — gentle opacity transitions
+  // =====================================================
+  function initCrossfades() {
+    document.querySelectorAll('.card-img-wrap').forEach(wrap => {
+      const frames = Array.from(wrap.querySelectorAll('.kb-frame'));
+      if (frames.length === 0) return;
+      if (frames.length === 1) { frames[0].style.opacity = '1'; return; }
+
+      let idx = 0;
+      let paused = false;
+      frames[0].style.opacity = '1';
+
+      setInterval(() => {
+        if (paused) return;
+        frames[idx].style.opacity = '0';
+        idx = (idx + 1) % frames.length;
+        frames[idx].style.opacity = '1';
+      }, 5000);
+
+      const card = wrap.closest('.work-card');
+      if (card) {
+        card.addEventListener('mouseenter', () => paused = true);
+        card.addEventListener('mouseleave', () => paused = false);
+      }
+    });
+  }
+  // Run after a short delay to let lazy loading kick in first
+  setTimeout(initCrossfades, 200);
+
+  // =====================================================
+  // CATEGORY FILTER
+  // =====================================================
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.work-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter);
+      });
+      document.querySelectorAll('.portfolio-section').forEach(section => {
+        const visible = section.querySelectorAll('.work-card:not(.hidden)');
+        section.style.display = visible.length ? '' : 'none';
+      });
+    });
+  });
+
+  // =====================================================
+  // SCROLL REVEAL
+  // =====================================================
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => revealObs.observe(el));
+</script>
+</body>
+</html>
