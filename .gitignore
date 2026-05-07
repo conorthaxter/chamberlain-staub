@@ -5,6 +5,7 @@ client files/
 assets/video/*.mov
 assets/video/*.mp4
 assets/video/*.webm
+!assets/video/doom.mp4
 
 # OS junk
 .DS_Store

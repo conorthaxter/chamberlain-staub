@@ -9,7 +9,7 @@
 <meta property="og:description" content="Emmy-winning producer. Director of 'Doom' — SXSW 2026 Official Selection. Based in Los Angeles.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/images/headshot/chamberlain-headshot.jpg">
-<!-- TODO: add favicon once asset is available -->
+<link rel="icon" href="assets/images/headshot/chamberlain-headshot.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,700;1,900&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -466,75 +466,7 @@
     .about-img-label { display: none; }
     .about-text { order: 1; }
 
-    #contact { padding: 5rem 1.5rem 4rem; }
-    .contact-heading { font-size: clamp(2.5rem, 12vw, 5rem); }
     .footer-line { flex-direction: column; gap: 0.5rem; }
-  }
-
-  /* CONTACT */
-  #contact {
-    position: relative;
-    padding: 7rem 3rem 5rem;
-    text-align: center;
-    overflow: hidden;
-  }
-  #contact::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(58,154,74,0.3), transparent);
-  }
-  .contact-eyebrow {
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 2rem;
-  }
-  .contact-heading {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-weight: 900;
-    font-size: clamp(3rem, 8vw, 8rem);
-    line-height: 1;
-    color: var(--cream);
-    margin-bottom: 3rem;
-  }
-  .contact-sub {
-    font-size: 0.85rem;
-    color: var(--cream-dim);
-    font-weight: 300;
-    max-width: 400px;
-    margin: 0 auto 3rem;
-    line-height: 1.7;
-  }
-  .cta-btn {
-    display: inline-block;
-    padding: 1rem 3rem;
-    background: var(--green);
-    color: var(--black);
-    font-family: 'Hanken Grotesk', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.3s, transform 0.3s;
-    cursor: none;
-  }
-  .cta-btn:hover { background: var(--cream); transform: translateY(-2px); }
-
-  .footer-line {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(232,224,208,0.08);
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    color: var(--cream-dim);
-    text-transform: uppercase;
   }
 
   .reveal {
@@ -573,7 +505,6 @@
     <li><a href="#work">Work</a></li>
     <li><a href="portfolio.html">Portfolio</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="https://instagram.com/staubit" target="_blank" class="nav-ig">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -586,8 +517,7 @@
 
 <!-- HERO -->
 <section id="hero">
-  <!-- TODO: drop a compressed 720p mp4 of your reel at assets/video/hero-reel.mp4 to enable hero video -->
-  <!-- <video class="hero-video" autoplay muted loop playsinline><source src="assets/video/hero-reel.mp4" type="video/mp4"></video> -->
+  <video class="hero-video" autoplay muted loop playsinline><source src="assets/video/doom.mp4" type="video/mp4"></video>
   <div class="hero-text-container">
     <div class="hero-name" id="heroName">
       <div>Chamberlain</div>
@@ -617,7 +547,6 @@
       <a href="https://youtu.be/it-8MIm29bI?si=wAv_CW40i2xF7mMv" target="_blank" class="project-card reveal reveal-delay-1">
         <div class="card-bg" style="background-image:url('assets/images/documentary/blue-zones-03.jpg')"></div>
         <div class="card-overlay"></div>
-        <div class="emmy-badge">Netflix</div>
         <div class="card-content">
           <div class="card-category">Documentary Series · Netflix</div>
           <div class="card-title">Live to 100:<br>Secrets of the Blue Zones</div>
@@ -717,8 +646,8 @@
       <h2 class="about-heading reveal reveal-delay-1">Visually driven,<br>character-focused<br>storytelling.</h2>
     </div>
     <div class="about-body-block">
-      <p class="about-body reveal">Chamberlain Staub has produced Emmy winning series, including Chef's Table and Live to 100: Secrets of the Blue Zones, developing a foundation in visually driven, character-focused storytelling.</p>
-      <p class="about-body reveal">She leans into a hybrid directorial style blending documentary and scripted elements. Her latest directorial project, <em>Doom</em>, created for the band Great Grandpa, explores emotional inheritance and the feeling of being trapped inside unresolved pasts.</p>
+      <p class="about-body reveal">Chamberlain Staub is a Director &amp; Producer based out of Los Angeles, CA. She leans into a hybrid directorial style blending documentary and scripted elements. She has produced Emmy winning series, including Chef's Table and Live to 100: Secrets of the Blue Zones, developing a foundation in visually driven, character-focused storytelling. Her project, <em>Doom</em>, created for the band Great Grandpa, explores emotional inheritance and the feeling of being trapped inside unresolved pasts.</p>
+      <p class="about-body reveal">Staub prioritizes authenticity and collaboration with the subjects at the center of her stories and works comfortably across a wide range of budgets and production scales, bringing an adaptable, story-first approach to all her projects.</p>
       <!-- ACCOLADES embedded in right column -->
       <div class="about-accolades reveal">
         <div class="about-accolades-eyebrow">Official Selections / Awards</div>
@@ -755,21 +684,15 @@
           <span class="acc-award-year">2025</span>
         </div>
       </div>
+      <p class="about-body reveal" style="margin-top:1.5rem;">Reach out to her at <a href="mailto:chamberlain.staub@gmail.com" style="color:var(--green);text-decoration:none;">chamberlain.staub@gmail.com</a></p>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-eyebrow reveal">Get in Touch</div>
-  <h2 class="contact-heading reveal">Let's make<br><em>something.</em></h2>
-  <p class="contact-sub reveal">Available for documentary features, music videos, branded content, and narrative projects.</p>
-  <a href="mailto:hello@chamberlainstaub.com" class="cta-btn reveal">Reach Out</a>
-  <div class="footer-line">
-    <span>© 2026 Chamberlain Staub</span>
-    <span>Director &amp; Producer</span>
-  </div>
-</section>
+<footer style="padding:2rem 3rem;border-top:1px solid rgba(232,224,208,0.08);display:flex;justify-content:space-between;font-size:0.6rem;letter-spacing:0.15em;color:var(--cream-dim);text-transform:uppercase;">
+  <span>© 2026 Chamberlain Staub</span>
+  <span>Director &amp; Producer</span>
+</footer>
 
 <script>
   // Cursor
@@ -778,7 +701,7 @@
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
   });
-  document.querySelectorAll('a, .project-card, .cta-btn').forEach(el => {
+  document.querySelectorAll('a, .project-card').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
   });
