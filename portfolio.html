@@ -178,7 +178,7 @@
     display: block;
     background: rgba(255,255,255,0.015);
   }
-  .work-card.hidden { display: none; }
+  /* .work-card.hidden unused — filters now scroll to sections */
 
   /* Image area */
   .card-img-wrap {
@@ -938,25 +938,45 @@
   setTimeout(initCrossfades, 200);
 
   // =====================================================
-  // CATEGORY FILTER
+  // CATEGORY SCROLL-NAV
   // =====================================================
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.work-card');
+  const sections = document.querySelectorAll('.portfolio-section');
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
       const filter = btn.dataset.filter;
-      cards.forEach(card => {
-        card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter);
-      });
-      document.querySelectorAll('.portfolio-section').forEach(section => {
-        const visible = section.querySelectorAll('.work-card:not(.hidden)');
-        section.style.display = visible.length ? '' : 'none';
-      });
+      if (filter === 'all') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const target = document.getElementById('section-' + filter);
+        if (target) {
+          const navH = document.querySelector('nav').getBoundingClientRect().height;
+          const y = target.getBoundingClientRect().top + window.scrollY - navH - 16;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
     });
   });
+
+  // Highlight active button as you scroll
+  const sectionObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id.replace('section-', '');
+        filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === id));
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => sectionObs.observe(s));
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < 100) {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-filter="all"]').classList.add('active');
+    }
+  }, { passive: true });
 
   // =====================================================
   // SCROLL REVEAL
