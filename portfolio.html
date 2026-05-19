@@ -56,8 +56,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 3rem;
-    background: linear-gradient(to bottom, rgba(12,12,11,0.92), transparent);
+    padding: 1.5rem 3rem;
+    background: rgba(12,12,11,0.96);
+    border-bottom: 1px solid rgba(232,224,208,0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .nav-logo {
     font-family: 'Playfair Display', serif;
@@ -123,20 +126,11 @@
   /* =====================================================
      CATEGORY FILTER TABS
      ===================================================== */
-  .filter-bar {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    padding: 1.2rem 3rem;
-    background: var(--black);
-    border-bottom: 1px solid rgba(232,224,208,0.06);
+  .nav-filters {
     display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    gap: 0.3rem;
+    align-items: center;
   }
-  .filter-bar::-webkit-scrollbar { display: none; }
   .filter-btn {
     font-family: 'Hanken Grotesk', sans-serif;
     font-size: 0.6rem;
@@ -371,10 +365,20 @@
   @media (max-width: 768px) {
     body { cursor: auto; }
     .cursor { display: none; }
-    nav { padding: 1.5rem; }
-    .nav-links { gap: 1.5rem; }
-    .page-header { padding: 7rem 1.5rem 3rem; }
-    .filter-bar { padding: 1rem 1.5rem; }
+    nav { padding: 1.2rem 1.5rem 0; flex-wrap: wrap; gap: 0; }
+    .nav-links { gap: 1.5rem; padding-bottom: 0; }
+    .nav-filters {
+      order: 3;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0.75rem 0 0.9rem;
+      border-top: 1px solid rgba(232,224,208,0.05);
+      margin-top: 0.75rem;
+    }
+    .nav-filters::-webkit-scrollbar { display: none; }
+    .page-header { padding: 9rem 1.5rem 3rem; }
     .portfolio-section { padding: 3rem 1.5rem 1rem; }
     .project-grid { grid-template-columns: 1fr; gap: 1rem; }
     .card-img-wrap { padding-top: 65%; }
@@ -392,6 +396,13 @@
 
 <nav>
   <a href="/" class="nav-logo">Chamberlain Staub</a>
+  <div class="nav-filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="documentary">Documentary</button>
+    <button class="filter-btn" data-filter="music-videos">Music Videos</button>
+    <button class="filter-btn" data-filter="branded">Branded</button>
+    <button class="filter-btn" data-filter="narrative">Narrative</button>
+  </div>
   <ul class="nav-links">
     <li><a href="/portfolio">Portfolio</a></li>
     <li><a href="/#about">About</a></li>
@@ -405,14 +416,6 @@
   <div class="page-eyebrow reveal">Selected Work</div>
   <h1 class="page-title reveal reveal-delay-1">Portfolio</h1>
 </header>
-
-<div class="filter-bar">
-  <button class="filter-btn active" data-filter="all">All</button>
-  <button class="filter-btn" data-filter="documentary">Documentary</button>
-  <button class="filter-btn" data-filter="music-videos">Music Videos</button>
-  <button class="filter-btn" data-filter="branded">Branded</button>
-  <button class="filter-btn" data-filter="narrative">Narrative</button>
-</div>
 
 <!-- =========================================================
      DOCUMENTARY
