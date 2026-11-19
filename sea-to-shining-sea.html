@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sea to Shining Sea — Chamberlain Staub | Producer &amp; Videographer</title>
+<meta name="description" content="Newport Folk Presents: Sea to Shining Sea — a road trip, listening tour and living archive of conversations with musicians across the country. Produced and shot by Chamberlain Staub.">
+<meta property="og:title" content="Sea to Shining Sea — Chamberlain Staub">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://img.youtube.com/vi/5t42arjuC94/maxresdefault.jpg">
+<link rel="icon" href="assets/images/headshot/chamberlain-headshot.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,700;1,900&family=Hanken+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0c0c0b;
+    --green: #3a9a4a;
+    --cream: #e8e0d0;
+    --cream-dim: rgba(232, 224, 208, 0.5);
+    --gold: #c9a84c;
+    --line: rgba(232,224,208,0.06);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Hanken Grotesk', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR — gold on this page */
+  .cursor {
+    position: fixed; width: 8px; height: 8px;
+    background: var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+  }
+  .cursor.expanded { width: 40px; height: 40px; background: transparent; border: 1px solid var(--gold); }
+
+  /* NAV (shared) */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem;
+    background: rgba(12,12,11,0.96);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900;
+    font-size: 1rem; letter-spacing: 0.05em; color: var(--cream); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-dim); text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-ig { display: flex; align-items: center; line-height: 1; }
+  .nav-ig svg, .footer-ig svg, .ig-cta svg {
+    width: 18px; height: 18px; fill: none; stroke: currentColor;
+    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; display: block;
+  }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+
+  /* =====================================================
+     HERO — full-bleed still + route line
+     ===================================================== */
+  .sts-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 10rem 3rem 5rem;
+    overflow: hidden;
+  }
+  .sts-hero-bg {
+    position: absolute; inset: 0;
+    /* TODO: swap for a hero still from the Drive photo folder */
+    background: url('https://img.youtube.com/vi/5t42arjuC94/maxresdefault.jpg') center/cover no-repeat;
+    filter: saturate(0.6) brightness(0.45) sepia(0.15);
+    transform: scale(1.05);
+    animation: drift 30s ease-in-out infinite alternate;
+  }
+  @keyframes drift { to { transform: scale(1.12) translateX(-1.5%); } }
+  .sts-hero::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--black) 0%, rgba(12,12,11,0.4) 45%, rgba(12,12,11,0.2) 100%);
+  }
+  .sts-hero > *:not(.sts-hero-bg) { position: relative; z-index: 2; }
+
+  .presents {
+    font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.4rem;
+  }
+  .sts-title {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900;
+    font-size: clamp(3.5rem, 11vw, 11rem);
+    line-height: 0.88; letter-spacing: -0.025em;
+  }
+  .sts-title span { display: block; padding-left: 0.6em; color: transparent; -webkit-text-stroke: 1px var(--cream); }
+  .sts-role {
+    margin-top: 2rem;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream-dim);
+  }
+  .sts-role b { color: var(--cream); font-weight: 500; }
+
+  /* Route line — sea to sea */
+  .route {
+    margin-top: 3.5rem;
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream-dim);
+  }
+  .route-line { flex: 1; height: 14px; }
+  .route-line line { stroke: var(--gold); stroke-width: 1; stroke-dasharray: 2 6;
+    animation: roll 2.5s linear infinite; }
+  @keyframes roll { to { stroke-dashoffset: -16; } }
+  .route-line circle { fill: var(--gold); }
+
+  /* =====================================================
+     STATS STRIP — odometer feel
+     ===================================================== */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .stat { padding: 2.5rem 3rem; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900;
+    font-size: clamp(2.2rem, 4vw, 3.6rem); line-height: 1; color: var(--cream);
+  }
+  .stat-num sup { font-size: 0.45em; color: var(--gold); vertical-align: top; }
+  .stat-label {
+    margin-top: 0.7rem;
+    font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cream-dim);
+  }
+
+  /* =====================================================
+     SECTIONS
+     ===================================================== */
+  .sts-section { padding: 6rem 3rem; border-bottom: 1px solid var(--line); }
+  .sec-label {
+    display: flex; align-items: baseline; gap: 1rem;
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+  .sec-label em {
+    font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem;
+    letter-spacing: 0; color: var(--cream-dim);
+  }
+
+  /* About — pull-quote */
+  .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+  .about-meta { font-size: 0.8rem; line-height: 2; color: var(--cream-dim); }
+  .about-meta dt { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 1.2rem; }
+  .about-meta dt:first-child { margin-top: 0; }
+  .about-meta dd { color: var(--cream); }
+  .pull {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
+    font-size: clamp(1.3rem, 2.4vw, 2.1rem); line-height: 1.45; color: var(--cream);
+  }
+  .pull strong { font-weight: 700; color: var(--gold); }
+
+  /* Video — click-to-play */
+  .player {
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    background: #121211 center/cover no-repeat; overflow: hidden; cursor: none;
+  }
+  .player::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(12,12,11,0.35); transition: background 0.4s;
+  }
+  .player:hover::before { background: rgba(12,12,11,0.1); }
+  .play-btn {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 76px; height: 76px; border-radius: 50%;
+    border: 1px solid var(--cream); display: flex; align-items: center; justify-content: center;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s;
+    z-index: 2;
+  }
+  .play-btn::after {
+    content: ''; margin-left: 4px;
+    border-left: 14px solid var(--cream); border-top: 9px solid transparent; border-bottom: 9px solid transparent;
+  }
+  .player:hover .play-btn { transform: translate(-50%, -50%) scale(1.1); border-color: var(--gold); }
+  .player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 3; }
+
+  /* Conversations — mile markers */
+  .convos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .convo .player { aspect-ratio: 16 / 10; }
+  .convo .play-btn { width: 52px; height: 52px; }
+  .convo .play-btn::after { border-left-width: 10px; border-top-width: 6px; border-bottom-width: 6px; }
+  .convo-meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: 1.1rem; }
+  .convo-mile { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+  .convo-name {
+    margin-top: 0.4rem;
+    font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.35rem;
+  }
+  .convo-link {
+    font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream-dim); text-decoration: none; transition: color 0.3s;
+  }
+  .convo-link:hover { color: var(--gold); }
+
+  /* Stills — film-strip gallery */
+  .stills {
+    display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 14vw; gap: 0.8rem;
+  }
+  .still { position: relative; overflow: hidden; background: #121211 center/cover no-repeat; }
+  .still:nth-child(1) { grid-column: span 4; grid-row: span 2; }
+  .still:nth-child(2) { grid-column: span 2; }
+  .still:nth-child(3) { grid-column: span 2; }
+  .still:nth-child(4), .still:nth-child(5), .still:nth-child(6) { grid-column: span 2; }
+  .still.placeholder {
+    background: linear-gradient(135deg, #121211 0%, #1a1a19 100%);
+    border: 1px dashed rgba(232,224,208,0.07);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .still.placeholder span {
+    font-size: 0.48rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(232,224,208,0.22);
+  }
+
+  /* Follow CTA */
+  .follow { text-align: center; padding: 7rem 3rem; }
+  .follow-title {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900;
+    font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; margin-bottom: 2.2rem;
+  }
+  .ig-cta {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    padding: 1rem 2rem; border: 1px solid var(--gold); color: var(--gold);
+    font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .ig-cta:hover { background: var(--gold); color: var(--black); }
+  .back-link {
+    display: block; margin-top: 3rem;
+    font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--cream-dim); text-decoration: none; transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--green); }
+
+  /* FOOTER (shared) */
+  .site-footer {
+    padding: 3rem; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif; font-style: italic; font-weight: 900;
+    font-size: 0.95rem; color: var(--cream); text-decoration: none;
+  }
+  .footer-meta { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream-dim); }
+  .footer-ig { display: flex; align-items: center; color: var(--cream-dim); transition: color 0.3s; }
+  .footer-ig:hover { color: var(--green); }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .convos { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor { display: none; }
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .sts-hero { padding: 8rem 1.5rem 3.5rem; min-height: 90vh; }
+    .stat { padding: 1.8rem 1.5rem; }
+    .sts-section { padding: 4rem 1.5rem; }
+    .convos { grid-template-columns: 1fr; }
+    .stills { grid-template-columns: 1fr 1fr; grid-auto-rows: 38vw; }
+    .still:nth-child(n) { grid-column: span 1; grid-row: span 1; }
+    .still:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .follow { padding: 5rem 1.5rem; }
+    .site-footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sts-hero-bg, .route-line line { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav>
+  <a href="/" class="nav-logo">Chamberlain Staub</a>
+  <ul class="nav-links">
+    <li><a href="/portfolio">Portfolio</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="https://instagram.com/staubit" target="_blank" class="nav-ig">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+    </a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="sts-hero">
+  <div class="sts-hero-bg"></div>
+  <div class="presents reveal">Newport Folk Presents</div>
+  <h1 class="sts-title reveal reveal-delay-1">Sea to<span>Shining Sea</span></h1>
+  <div class="sts-role reveal reveal-delay-2">Chamberlain Staub &nbsp;·&nbsp; <b>Producer + Videographer</b></div>
+  <div class="route reveal reveal-delay-3" aria-hidden="true">
+    <span>Sea</span>
+    <svg class="route-line" preserveAspectRatio="none" viewBox="0 0 100 14">
+      <line x1="0" y1="7" x2="100" y2="7" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <span>Shining Sea</span>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stat reveal"><div class="stat-num">88<sup>+</sup></div><div class="stat-label">Conversations</div></div>
+  <div class="stat reveal reveal-delay-1"><div class="stat-num">1</div><div class="stat-label">Month on the road</div></div>
+  <div class="stat reveal reveal-delay-2"><div class="stat-num">4</div><div class="stat-label">Person crew</div></div>
+  <div class="stat reveal reveal-delay-3"><div class="stat-num">May</div><div class="stat-label">2026</div></div>
+</section>
+
+<!-- ABOUT -->
+<section class="sts-section">
+  <div class="sec-label reveal">The Project <em>— a listening tour</em></div>
+  <div class="about-grid">
+    <dl class="about-meta reveal">
+      <dt>Presented by</dt><dd>Newport Folk</dd>
+      <dt>Role</dt><dd>Producer + Videographer</dd>
+      <dt>Format</dt><dd>Docu-series · Interviews · Performances</dd>
+      <dt>Shot</dt><dd>Natural light · Clip-on mics</dd>
+    </dl>
+    <p class="pull reveal reveal-delay-1">
+      A road trip, listening tour and living archive of conversations with musicians known and unknown. We hit the road for a month in May 2026 and filmed over 88 conversations along with performances and community gatherings across the country. We kept the crew small — only four people, moving light and fast, relying on natural lighting and clip-on microphones. <strong>The result is a series of conversations that feel more like riding shotgun.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- TEASER -->
+<section class="sts-section">
+  <div class="sec-label reveal">Series Teaser</div>
+  <div class="player reveal" data-yt="5t42arjuC94" style="background-image:url('https://img.youtube.com/vi/5t42arjuC94/maxresdefault.jpg')" role="button" aria-label="Play series teaser">
+    <div class="play-btn"></div>
+  </div>
+</section>
+
+<!-- CONVERSATIONS -->
+<section class="sts-section">
+  <div class="sec-label reveal">Conversations <em>— from the road</em></div>
+  <div class="convos">
+
+    <div class="convo reveal">
+      <div class="player" data-yt="hp7vmH-9fWA" style="background-image:url('https://img.youtube.com/vi/hp7vmH-9fWA/hqdefault.jpg')" role="button" aria-label="Play Tyler Childers interview"><div class="play-btn"></div></div>
+      <div class="convo-mile">Stop 01</div>
+      <div class="convo-meta">
+        <div class="convo-name">Tyler Childers</div>
+        <a class="convo-link" href="https://www.youtube.com/watch?v=hp7vmH-9fWA" target="_blank">YouTube ↗</a>
+      </div>
+    </div>
+
+    <div class="convo reveal reveal-delay-1">
+      <div class="player" data-yt="IHP0ez2JXAY" style="background-image:url('https://img.youtube.com/vi/IHP0ez2JXAY/hqdefault.jpg')" role="button" aria-label="Play Medium Build interview"><div class="play-btn"></div></div>
+      <div class="convo-mile">Stop 02</div>
+      <div class="convo-meta">
+        <div class="convo-name">Medium Build</div>
+        <a class="convo-link" href="https://www.youtube.com/watch?v=IHP0ez2JXAY" target="_blank">YouTube ↗</a>
+      </div>
+    </div>
+
+    <div class="convo reveal reveal-delay-2">
+      <div class="player" data-yt="DuDmKto2Efk" style="background-image:url('https://img.youtube.com/vi/DuDmKto2Efk/hqdefault.jpg')" role="button" aria-label="Play Sierra Ferrell interview"><div class="play-btn"></div></div>
+      <div class="convo-mile">Stop 03</div>
+      <div class="convo-meta">
+        <div class="convo-name">Sierra Ferrell</div>
+        <a class="convo-link" href="https://www.youtube.com/watch?v=DuDmKto2Efk" target="_blank">YouTube ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STILLS — TODO: replace placeholders with images from Drive folder
+     "Sea to Shining Sea (Producer + Videographer)"; use: <div class="still" style="background-image:url('assets/images/documentary/sts-01.jpg')"></div> -->
+<section class="sts-section">
+  <div class="sec-label reveal">Stills <em>— on the road</em></div>
+  <div class="stills reveal">
+    <div class="still placeholder"><span>Still coming soon</span></div>
+    <div class="still placeholder"><span>Still coming soon</span></div>
+    <div class="still placeholder"><span>Still coming soon</span></div>
+    <div class="still placeholder"><span>Still coming soon</span></div>
+    <div class="still placeholder"><span>Still coming soon</span></div>
+    <div class="still placeholder"><span>Still coming soon</span></div>
+  </div>
+</section>
+
+<!-- FOLLOW -->
+<section class="follow">
+  <h2 class="follow-title reveal">Follow the archive</h2>
+  <a class="ig-cta reveal reveal-delay-1" href="https://www.instagram.com/seatoshiningseaproject/" target="_blank">
+    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+    @seatoshiningseaproject
+  </a>
+  <a class="back-link reveal reveal-delay-2" href="/portfolio">← Back to Portfolio</a>
+</section>
+
+<footer class="site-footer">
+  <a href="/" class="footer-logo">Chamberlain Staub</a>
+  <span class="footer-meta">© 2026 · Director &amp; Producer</span>
+  <a href="https://instagram.com/staubit" target="_blank" class="footer-ig">
+    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+  </a>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, .player').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('expanded'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+  });
+
+  // Click-to-play YouTube (no iframe cost until clicked)
+  document.querySelectorAll('.player[data-yt]').forEach(p => {
+    p.addEventListener('click', () => {
+      if (p.querySelector('iframe')) return;
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${p.dataset.yt}?autoplay=1&rel=0`;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      p.appendChild(f);
+      cursor.classList.remove('expanded');
+    });
+  });
+
+  // Scroll reveal
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+</script>
+</body>
+</html>
