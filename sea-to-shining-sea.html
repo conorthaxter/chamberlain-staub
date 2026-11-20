@@ -168,6 +168,7 @@
   .about-meta dt:first-child { margin-top: 0; }
   .about-meta dd { color: var(--cream); }
   .pull {
+    margin-top: -0.35em; /* optical: cap height to label top */
     font-family: 'Playfair Display', serif; font-style: italic; font-weight: 400;
     font-size: clamp(1.3rem, 2.4vw, 2.1rem); line-height: 1.45; color: var(--cream);
   }
@@ -334,14 +335,16 @@
 
 <!-- ABOUT -->
 <section class="sts-section">
-  <div class="sec-label reveal">The Project <em>— a listening tour</em></div>
   <div class="about-grid">
-    <dl class="about-meta reveal">
+    <div class="reveal">
+    <div class="sec-label">The Project <em>— a listening tour</em></div>
+    <dl class="about-meta">
       <dt>Presented by</dt><dd>Newport Folk</dd>
       <dt>Role</dt><dd>Producer + Videographer</dd>
       <dt>Format</dt><dd>Docu-series · Interviews · Performances</dd>
       <dt>Shot</dt><dd>Natural light · Clip-on mics</dd>
     </dl>
+    </div>
     <p class="pull reveal reveal-delay-1">
       A road trip, listening tour and living archive of conversations with musicians known and unknown. We hit the road for a month in May 2026 and filmed over 88 conversations along with performances and community gatherings across the country. We kept the crew small — only four people, moving light and fast, relying on natural lighting and clip-on microphones. <strong>The result is a series of conversations that feel more like riding shotgun.</strong>
     </p>
