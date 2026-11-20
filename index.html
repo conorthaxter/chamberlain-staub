@@ -182,9 +182,16 @@
     line-height: 1;
   }
 
-  /* FEATURE BAND — Sea to Shining Sea */
+  /* FEATURE BAND — Sea to Shining Sea (same tilt as grid) */
+  .feature-tilt {
+    padding: 0 3rem 1.2rem;
+    transform: rotate(-2.5deg) translateX(-1.5%);
+    width: 106%;
+    margin-bottom: 1.5rem;
+  }
+  .feature-tilt .feature-band { width: calc(96% + 1.2rem * 2); }
   .feature-band {
-    position: relative; display: block; margin: 0 3rem 3rem;
+    position: relative; display: block; margin: 0;
     height: clamp(320px, 42vw, 560px); overflow: hidden;
     text-decoration: none; color: var(--cream);
   }
@@ -488,7 +495,8 @@
 
     #work { padding: 4rem 0 3rem; }
     .section-header { padding: 0 1.5rem; margin-bottom: 2rem; }
-    .feature-band { margin: 0 1.5rem 2rem; height: 70vw; }
+    .feature-tilt { transform: none; width: 100%; padding: 0 1rem 1rem; margin-bottom: 0; }
+    .feature-tilt .feature-band { width: 100%; height: 70vw; }
     .feature-band-content { left: 1.3rem; right: 1.3rem; bottom: 1.4rem; }
     .diagonal-grid {
       padding: 0 1rem;
@@ -583,6 +591,7 @@
     <span class="section-label">Selected Work</span>
     <h2 class="section-title">Projects</h2>
   </div>
+  <div class="feature-tilt">
   <a href="/sea-to-shining-sea" class="feature-band reveal">
     <div class="feature-band-bg"></div>
     <div class="feature-band-content">
@@ -594,6 +603,7 @@
       </div>
     </div>
   </a>
+  </div>
   <div class="diagonal-grid">
     <div class="grid-row">
       <a href="https://youtu.be/heXjjQLnKuc?si=dOeSlf1dAPl6gSAj" target="_blank" class="project-card reveal">
